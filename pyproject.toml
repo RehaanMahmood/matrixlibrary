@@ -1,5 +1,5 @@
 [project]
-name = "matrixlib"  # this is the name users will pip install
+name = "matrixlib"
 version = "0.1.0"
 description = "A python package that provides tools to perform operations with matrices and vectors."
 authors = [
