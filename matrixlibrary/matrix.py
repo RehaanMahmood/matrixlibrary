@@ -2,8 +2,7 @@ det_cache: dict = {}
 
 
 class Matrix:
-    def __init__(
-            self, matrix: list[list[int | float | complex]]) -> None:
+    def __init__(self, matrix: list[list[int | float | complex]]) -> None:
         l: int = len(matrix[0])
         for row in matrix:
             if len(row) != l:
@@ -36,7 +35,9 @@ class Matrix:
     def __sub__(self, matrix1: "Matrix") -> "Matrix":
         return self + (-1) * matrix1
 
-    def transpose(self,) -> "Matrix":
+    def transpose(
+        self,
+    ) -> "Matrix":
         output: list[list[int | float | complex]] = []
         for j in range(self.ncols):
             row: list[int | float | complex] = []
@@ -54,21 +55,21 @@ class Matrix:
                 row = []
                 for k in range(other.ncols):
                     total = sum(
-                        self.matrix[i][j] * other.matrix[j][k] for j in range(self.ncols)
+                        self.matrix[i][j] * other.matrix[j][k]
+                        for j in range(self.ncols)
                     )
                     row.append(total)
                 output.append(row)
             return Matrix(output)
 
         elif isinstance(other, (int, float, complex)):
-            output = [
-                [elem * other for elem in row]
-                for row in self.matrix
-            ]
+            output = [[elem * other for elem in row] for row in self.matrix]
             return Matrix(output)
 
         else:
-            raise TypeError(f"Unsupported operand type(s) for *: 'Matrix' and '{type(other).__name__}'")
+            raise TypeError(
+                f"Unsupported operand type(s) for *: 'Matrix' and '{type(other).__name__}'"
+            )
 
     def __rmul__(self, other) -> "Matrix":
         return self * other
@@ -112,10 +113,7 @@ class Matrix:
         return self.matrix == self.transpose().matrix
 
     def is_skew_symmetric(self) -> bool:
-        return (
-                self.matrix
-                == (self.transpose() * -1).matrix
-        )
+        return self.matrix == (self.transpose() * -1).matrix
 
     def is_square(self) -> bool:
         return self.nrows == self.ncols
@@ -135,7 +133,7 @@ class Matrix:
         return True
 
     def row_add(
-            self, index1: int, index2: int, scalar_multiple: int | float | complex
+        self, index1: int, index2: int, scalar_multiple: int | float | complex
     ) -> None:
         result: list[int | float | complex] = []
         for i in range(self.ncols):
@@ -176,11 +174,7 @@ class Matrix:
                     if y != i:
                         row.append(self.matrix[x][y])
                 new_matrix.append(row)
-            result += (
-                    (-1) ** i
-                    * self.matrix[0][i]
-                    * Matrix(new_matrix).det()
-            )
+            result += (-1) ** i * self.matrix[0][i] * Matrix(new_matrix).det()
         det_cache[key] = result
         return result
 
@@ -287,8 +281,8 @@ def ones(r: int, c: int, as_matrix: bool = True) -> Matrix | list[list[int]]:
 
 
 def diag(
-        seq: list[int | float | complex] | tuple[int | float | complex],
-        as_matrix: bool = True,
+    seq: list[int | float | complex] | tuple[int | float | complex],
+    as_matrix: bool = True,
 ) -> Matrix | list[list[int | float | complex]]:
     n: int = len(seq)
     output: list[list[int]] = zeros(n, n, as_matrix=False)
@@ -298,7 +292,7 @@ def diag(
 
 
 def identity(
-        n: int, as_matrix: bool = True
+    n: int, as_matrix: bool = True
 ) -> Matrix | list[list[int | float | complex]]:
     return diag([1] * n, as_matrix=as_matrix)
 
