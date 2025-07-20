@@ -1,6 +1,6 @@
 [project]
 name = "matrixlibrary"
-version = "0.1.0"
+version = "0.1.1"
 description = "A python package that provides tools to perform operations with matrices and vectors."
 authors = [
     { name = "Rehaan Mahmood", email = "rehaanmd.310506@gmail.com" }
